@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SchoolOrNot</title>
+
+    <style>
+      .center {
+        margin: auto;
+        width: 50%;
+        border: 3px solid green;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info" class="center"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+      const timeTable = {
+        Monday: (hour, minute) => {
+          if (12 < hour && hour < 16) return true;
+          else return false;
+        },
+        Tuesday: (hour, minute) => {
+          if ((8 < hour && hour < 10) || (13 < hour && hour < 15)) return true;
+          else return false;
+        },
+        Wednesday: (hour, minute) => {
+          if (8 < hour && hour < 19) return true;
+          else return false;
+        },
+        Thursday: (hour, minute) => {
+          if (12 < hour && hour < 16) return true;
+          else return false;
+        },
+        Friday: (hour, minute) => {
+          if (8 < hour && hour < 12) return true;
+          else return false;
+        },
+        Saturday: (hour, minute) => {
+          return false;
+        },
+        Sunday: (hour, minute) => {
+          return false;
+        },
+      };
+      function draw() {
+        const day = parseInt(moment().format("dddd"));
+        const hour = parseInt(moment().format("h"));
+        const minute = parseInt(moment().format("mm"));
+        const inSchool = timeTable[day](hour, minute);
+        document.getElementById("info").innerHTML = `${moment().format(
+          "MMMM Do YYYY, h:mm:ss a"
+        )}<br>${inSchool ? "Yes" : "No"}`;
+      }
+
+      draw();
+      setInterval(draw, 30);
+    </script>
+  </body>
+</html>
