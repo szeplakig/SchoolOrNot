@@ -1,21 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SchoolOrNot</title>
 
     <style>
-      .center {
-        margin: auto;
-        width: 50%;
-        border: 3px solid green;
-        padding: 10px;
+      html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        position: relative;
+        min-width: 100%;
+        min-height: 100%;
+      }
+
+      .info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20%;
+        height: 10%;
+        padding: 20px;
+
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: large;
+        font-weight: bold;
+      }
+
+      .infoyes {
+        background: #fc4a1a; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          45deg,
+          #f7b733,
+          #ff6f47
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          45deg,
+          #f7b733,
+          #ff6f47
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background-size: 400% 400%;
+        -webkit-animation: scrolling 60s ease infinite;
+        -moz-animation: scrolling 60s ease infinite;
+        -o-animation: scrolling 60s ease infinite;
+        animation: scrolling 60s ease infinite;
+      }
+
+      .infono {
+        background: #22c1c3; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          45deg,
+          #fdbb2d,
+          #22c1c3
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          45deg,
+          #fdbb2d,
+          #22c1c3
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        background-size: 400% 400%;
+        -webkit-animation: scrolling 60s ease infinite;
+        -moz-animation: scrolling 60s ease infinite;
+        -o-animation: scrolling 60s ease infinite;
+        animation: scrolling 60s ease infinite;
+      }
+
+      .yes {
+        background: #4ac29a; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          -45deg,
+          #bdfff3,
+          #4ac29a
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          -45deg,
+          #bdfff3,
+          #4ac29a
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        background-size: 400% 400%;
+        -webkit-animation: scrolling 60s ease infinite;
+        -moz-animation: scrolling 60s ease infinite;
+        -o-animation: scrolling 60s ease infinite;
+        animation: scrolling 60s ease infinite;
+      }
+
+      .no {
+        background: #3e5151; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          -45deg,
+          #decba4,
+          #455a5a
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          -45deg,
+          #decba4,
+          #455a5a
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background-size: 400% 400%;
+        -webkit-animation: scrolling 60s ease infinite;
+        -moz-animation: scrolling 60s ease infinite;
+        -o-animation: scrolling 60s ease infinite;
+        animation: scrolling 60s ease infinite;
+      }
+      @-webkit-keyframes scrolling {
+        0% {
+          background-position: 0% 91%;
+        }
+        50% {
+          background-position: 100% 10%;
+        }
+        100% {
+          background-position: 0% 91%;
+        }
+      }
+      @-moz-keyframes scrolling {
+        0% {
+          background-position: 0% 91%;
+        }
+        50% {
+          background-position: 100% 10%;
+        }
+        100% {
+          background-position: 0% 91%;
+        }
+      }
+      @-o-keyframes scrolling {
+        0% {
+          background-position: 0% 91%;
+        }
+        50% {
+          background-position: 100% 10%;
+        }
+        100% {
+          background-position: 0% 91%;
+        }
+      }
+      @keyframes scrolling {
+        0% {
+          background-position: 0% 91%;
+        }
+        50% {
+          background-position: 100% 10%;
+        }
+        100% {
+          background-position: 0% 91%;
+        }
       }
     </style>
   </head>
-  <body>
-    <div id="info" class="center"></div>
+  <body class="no">
+    <div id="info" class="info infono"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
@@ -48,17 +195,26 @@
         },
       };
       function draw() {
-        const day = parseInt(moment().format("dddd"));
-        const hour = parseInt(moment().format("h"));
+        const day = moment().format("dddd");
+        const hour = parseInt(moment().format("H"));
         const minute = parseInt(moment().format("mm"));
         const inSchool = timeTable[day](hour, minute);
-        document.getElementById("info").innerHTML = `${moment().format(
-          "MMMM Do YYYY, h:mm:ss a"
-        )}<br>${inSchool ? "Yes" : "No"}`;
+        const info = document.getElementById("info");
+        info.innerHTML = `${moment().format("YYYY MMMM Do, H:mm:ss")}<br><br>${
+          inSchool ? "In school" : "Not in school"
+        }`;
+        document.body.classList.replace(
+          inSchool ? "yes" : "no",
+          inSchool ? "no" : "yes"
+        );
+        info.classList.replace(
+          inSchool ? "infoyes" : "infono",
+          inSchool ? "infono" : "infoyes"
+        );
       }
 
       draw();
-      setInterval(draw, 30);
+      setInterval(draw, 1000);
     </script>
   </body>
 </html>
