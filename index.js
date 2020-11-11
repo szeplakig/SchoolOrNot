@@ -73,31 +73,20 @@ function draw() {
     `<h1>${now.format("Do MMMM YYYY, HH:mm:ss")}</h1><br>` +
     activities
       .filter((act) => {
-        let seen = seenTypes.filter((t) => t == act.type).length < 2;
+        if(act.to.diff(now) <= 0) return false;
+        let seen = seenTypes.filter((t) => t == act.type).length < 1;
         if (seen) seenTypes.push(act.type);
         return seen;
       })
       .map((act) => {
-        if (act.tentative) {
-          if (now.isBetween(act.from, act.to)) {
-            return `<h4><u>(Tentative)</u> Doing '${
-              act.type
-            }' right now for ${act.to.fromNow(true)}!</h5>`;
-          } else {
-            return `<h4><u>(Tentative)</u> '${act.type}' ${now.to(
-              act.from
-            )}, ${act.from.calendar()}</h4>`;
-          }
+        if (now.isBetween(act.from, act.to)) {
+          return `<h3>${act.tentative?'<u>(Tentative)</u> ':''}Doing '${
+            act.type
+          }' right now for ${act.to.fromNow(true)}!</h3>`;
         } else {
-          if (now.isBetween(act.from, act.to)) {
-            return `<h3>Doing '${act.type}' right now for ${act.to.fromNow(
-              true
-            )}!</h3>`;
-          } else {
-            return `<h4>'${act.type}' ${now.to(
-              act.from
-            )}, ${act.from.calendar()}</h4>`;
-          }
+          return `<h4>${act.tentative?'<u>(Tentative)</u> ':''}'${act.type}' ${now.to(
+            act.from
+          )}, ${act.from.calendar()}</h4>`;
         }
       })
       .join("<br>");
