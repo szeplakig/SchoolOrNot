@@ -80,11 +80,11 @@ function draw() {
       })
       .map((act) => {
         if (now.isBetween(act.from, act.to)) {
-          return `<h3>${act.tentative?'<u>(Tentative)</u> ':''}Doing '${
+          return `<h3>${act.tentative?'<i>(Tentative)</i> ':''}Doing '${
             act.type
           }' right now for ${act.to.fromNow(true)}!</h3>`;
         } else {
-          return `<h4>${act.tentative?'<u>(Tentative)</u> ':''}'${act.type}' ${now.to(
+          return `<h4>${act.tentative?'<i>(Tentative)</i> ':''}'${act.type}' ${now.to(
             act.from
           )}, ${act.from.calendar()}</h4>`;
         }
