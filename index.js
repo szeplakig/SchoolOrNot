@@ -67,29 +67,33 @@ function draw() {
     )
     .sort((a, b) => a.from.unix() - b.from.unix());
 
+  const time = document.getElementById("time");
+  time.innerHTML = `<h1>${now.format("Do MMMM YYYY, HH:mm:ss")}</h1>`;
+  
   const seenTypes = [];
   const info = document.getElementById("info");
-  info.innerHTML =
-    `<h1>${now.format("Do MMMM YYYY, HH:mm:ss")}</h1><br>` +
-    activities
-      .filter((act) => {
-        if(act.to.diff(now) <= 0) return false;
-        let seen = seenTypes.filter((t) => t == act.type).length < 1;
-        if (seen) seenTypes.push(act.type);
-        return seen;
-      })
-      .map((act) => {
-        if (now.isBetween(act.from, act.to)) {
-          return `<h3>${act.tentative?'<u>(Tentative)</u> ':''}Doing '${
-            act.type
-          }' right now for ${act.to.fromNow(true)}!</h3>`;
-        } else {
-          return `<h4>${act.tentative?'<u>(Tentative)</u> ':''}'${act.type}' ${now.to(
-            act.from
-          )}, ${act.from.calendar()}</h4>`;
-        }
-      })
-      .join("<br>");
+  const text = activities
+  .filter((act) => {
+    if (act.to.diff(now) <= 0) return false;
+    let seen = seenTypes.filter((t) => t == act.type).length < 1;
+    if (seen) seenTypes.push(act.type);
+    return seen;
+  })
+  .map((act) => {
+    if (now.isBetween(act.from, act.to)) {
+      return `<h3>${act.tentative ? "<u>(Tentative)</u> " : ""}Doing '${
+        act.type
+      }' right now for ${act.to.fromNow(true)}!</h3><h5>${act.from.calendar()} to ${act.to.calendar()}</h5>`;
+    } else {
+      return `<h4>${act.tentative ? "<u>(Tentative)</u> " : ""}'${
+        act.type
+      }' ${now.to(act.from)}, ${act.from.calendar()}</h4><h5>${act.from.calendar()} to ${act.to.calendar()}</h5>`;
+    }
+  })
+  .join("<br>")
+  if(info.innerHTML != text){
+    info.innerHTML = text;
+  }
 }
 
 draw();
