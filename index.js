@@ -75,7 +75,7 @@ function draw() {
   const text = activities
   .filter((act) => {
     if (act.to.diff(now) <= 0) return false;
-    let seen = seenTypes.filter((t) => t == act.type).length < 1;
+    let seen = seenTypes.filter((t) => t == act.type).length < 2;
     if (seen) seenTypes.push(act.type);
     return seen;
   })
