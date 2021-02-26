@@ -11,7 +11,7 @@ const days = [
 const timeTable = {
   Monday: {
     School: [{ from: "08:00:00", to: "16:00:00" }],
-    Work: [{ from: "12:00:00", to: "16:00:00", tentative: true }],
+    Work: [],
   },
   Tuesday: {
     School: [],
@@ -27,7 +27,7 @@ const timeTable = {
   },
   Friday: {
     School: [{ from: "08:00:00", to: "16:00:00" }],
-    Work: [{ from: "12:00:00", to: "16:00:00", tentative: true }],
+    Work: [],
   },
   Saturday: {
     School: [],
