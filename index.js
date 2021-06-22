@@ -10,24 +10,24 @@ const days = [
 
 const timeTable = {
   Monday: {
-    School: [{ from: "08:00:00", to: "16:00:00" }],
-    Work: [],
+    School: [],
+    Work: [{ from: "08:00:00", to: "16:00:00", tentative: true }],
   },
   Tuesday: {
     School: [],
-    Work: [{ from: "08:00:00", to: "16:00:00" }],
+    Work: [{ from: "08:00:00", to: "16:00:00", tantative: true }],
   },
   Wednesday: {
     School: [],
-    Work: [{ from: "08:00:00", to: "16:00:00" }],
+    Work: [{ from: "08:00:00", to: "16:00:00", tantative: true }],
   },
   Thursday: {
     School: [],
-    Work: [{ from: "08:00:00", to: "16:00:00" }],
+    Work: [{ from: "08:00:00", to: "16:00:00", tantative: true }],
   },
   Friday: {
-    School: [{ from: "08:00:00", to: "16:00:00" }],
-    Work: [],
+    School: [],
+    Work: [{ from: "08:00:00", to: "16:00:00", tantative: true }],
   },
   Saturday: {
     School: [],
